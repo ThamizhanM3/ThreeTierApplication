@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3-Tier App</title>
+  <style> body { font-family: system-ui, sans-serif; margin: 2rem; } code { background:#f2f2f2; padding:2px 4px; } </style>
+</head>
+<body>
+  <h1>Three-Tier App (Docker)</h1>
+  <p>Frontend → Backend → Database (MySQL)</p>
+
+  <button id="load">Load Items</button>
+  <ul id="items"></ul>
+
+  <script>
+    document.getElementById('load').onclick = async () => {
+      const res = await fetch('/api/items');
+      const data = await res.json();
+      const list = document.getElementById('items');
+      list.innerHTML = '';
+      data.forEach(row => {
+        const li = document.createElement('li');
+        li.textContent = `${row.id}: ${row.name}`;
+        list.appendChild(li);
+      });
+    };
+  </script>
+</body>
+</html>
